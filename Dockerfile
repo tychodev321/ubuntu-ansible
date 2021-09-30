@@ -8,6 +8,7 @@ ENV ANSIBLE_VERSION=2.9
 # MicroDNF is recommended over YUM for Building Container Images
 # https://www.redhat.com/en/blog/introducing-red-hat-enterprise-linux-atomic-base-image
 
+RUN subscription-manager repos --enable ansible-${ANSIBLE_VERSION}-for-rhel-8-x86_64-rpms
 RUN microdnf update -y \
     && microdnf install -y ansible \
     && microdnf clean all \
