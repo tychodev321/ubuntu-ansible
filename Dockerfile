@@ -21,3 +21,7 @@ RUN microdnf update -y \
 RUN pip3 install ansible
 
 RUN ansible --version
+
+USER 1001
+
+CMD ["echo", "This is a 'Purpose Built Image', It is not meant to be ran directly"]
