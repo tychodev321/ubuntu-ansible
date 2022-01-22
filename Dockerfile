@@ -20,7 +20,7 @@ RUN microdnf update -y \
 
 RUN pip3 install ansible
 
-RUN ansible --version
+RUN ansible --version && ansible-playbook --version
 
 # USER 1001
 
