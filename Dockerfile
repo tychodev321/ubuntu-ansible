@@ -18,7 +18,7 @@ RUN microdnf update -y \
     && microdnf clean all \
     && rm -rf /var/cache/* /var/log/dnf* /var/log/yum.*
 
-RUN pip3 install ansible
+RUN pip3 install ansible && pip3 install "ansible-lint[yamllint]"
 
 RUN ansible --version && ansible-playbook --version
 
