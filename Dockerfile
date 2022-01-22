@@ -21,7 +21,7 @@ RUN microdnf update -y \
 
 RUN pip3 install ansible && pip3 install "ansible-lint[yamllint]"
 
-RUN ansible --version && ansible-playbook --version
+RUN ansible --version && ansible-playbook --version && git --version
 
 # USER 1001
 
