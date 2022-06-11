@@ -7,7 +7,7 @@ ENV PYTHON_VERSION=3 \
     PATH=$HOME/.local/bin/:$PATH \
     PYTHONUNBUFFERED=1 \
     PYTHONIOENCODING=UTF-8 \
-    PIP_NO_CACHE_DIR=off
+    PIP_NO_CACHE_DIR=off \
     ANSIBLE_VERSION=2.9
 
 # MicroDNF is recommended over YUM for Building Container Images
