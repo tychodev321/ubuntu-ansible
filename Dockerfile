@@ -3,7 +3,7 @@ FROM registry.access.redhat.com/ubi9/ubi-minimal:9.0.0
 
 LABEL maintainer=""
 
-ENV PYTHON_VERSION=39 \
+ENV PYTHON_VERSION=3 \
     PATH=$HOME/.local/bin/:$PATH \
     PYTHONUNBUFFERED=1 \
     PYTHONIOENCODING=UTF-8 \
@@ -14,11 +14,12 @@ ENV PYTHON_VERSION=39 \
 # MicroDNF is recommended over YUM for Building Container Images
 # https://www.redhat.com/en/blog/introducing-red-hat-enterprise-linux-atomic-base-image
 
-RUN microdnf repolist all \
-
+RUN microdnf repolist all
 
 RUN microdnf update -y \
     && microdnf install -y python-${PYTHON_VERSION} \
+    && microdnf install -y python-${PYTHON_VERSION}-devel \
+    && microdnf install -y python-${PYTHON_VERSION}-setuptools \
     && microdnf install -y python-${PYTHON_VERSION}-pip \
     && microdnf install -y git \
     && microdnf clean all \
