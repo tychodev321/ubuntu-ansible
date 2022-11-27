@@ -8,8 +8,8 @@ ENV PYTHON_VERSION=3 \
     PYTHONUNBUFFERED=1 \
     PYTHONIOENCODING=UTF-8 \
     PIP_NO_CACHE_DIR=off \
-    ANSIBLE_VERSION=2.9 \
-    ANSIBLE_LINT_VERSION=6.3.0
+    ANSIBLE_VERSION=2.14 \
+    ANSIBLE_LINT_VERSION=6.9.0
 
 # MicroDNF is recommended over YUM for Building Container Images
 # https://www.redhat.com/en/blog/introducing-red-hat-enterprise-linux-atomic-base-image
@@ -21,10 +21,14 @@ RUN microdnf update -y \
     && microdnf clean all \
     && rm -rf /var/cache/* /var/log/dnf* /var/log/yum.*
 
-RUN pip3 install ansible==${ANSIBLE_VERSION} && pip3 install "ansible-lint[yamllint]==${ANSIBLE_LINT_VERSION}"
+RUN python3 -m pip install ansible==${ANSIBLE_VERSION} \ 
+    && python3 -m pip install "ansible-lint[yamllint]==${ANSIBLE_LINT_VERSION}"
 
-RUN ansible --version && ansible-playbook --version && git --version
+RUN echo "ansible version: $(ansible --version)" \
+    && echo "ansible-playbook version: $(ansible-playbook --version)" \
+    && echo "ansible-lint version: $(ansible-lint --version)" \
+    && echo "git version: $(git --version)"
 
-# USER 1001
+USER 1001
 
 CMD ["echo", "This is a 'Purpose Built Image', It is not meant to be ran directly"]
