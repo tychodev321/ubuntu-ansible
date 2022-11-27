@@ -8,7 +8,7 @@ ENV PYTHON_VERSION=3 \
     PYTHONUNBUFFERED=1 \
     PYTHONIOENCODING=UTF-8 \
     PIP_NO_CACHE_DIR=off \
-    ANSIBLE_VERSION=2.14 \
+    ANSIBLE_VERSION=7.0.0 \
     ANSIBLE_LINT_VERSION=6.9.0
 
 # MicroDNF is recommended over YUM for Building Container Images
