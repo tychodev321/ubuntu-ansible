@@ -3,7 +3,7 @@ FROM registry.access.redhat.com/ubi9/ubi-minimal:9.0.0
 
 LABEL maintainer=""
 
-ENV PYTHON_VERSION=3 \
+ENV PYTHON_VERSION=3.9.14 \
     PATH=$HOME/.local/bin/:$PATH \
     PYTHONUNBUFFERED=1 \
     PYTHONIOENCODING=UTF-8 \
@@ -24,7 +24,7 @@ RUN microdnf update -y \
 RUN python3 -m pip install ansible==${ANSIBLE_VERSION} \ 
     && python3 -m pip install "ansible-lint[yamllint]==${ANSIBLE_LINT_VERSION}"
 
-RUN echo "ansible version: $(ansible --version | head -n 1)" \
+RUN echo "ansible version: $(ansible --version)" \
     && echo "ansible-playbook version: $(ansible-playbook --version | head -n 1)" \
     && echo "ansible-lint version: $(ansible-lint --version | head -n 1)" \
     && echo "git version: $(git --version)" \
