@@ -24,8 +24,8 @@ RUN microdnf update -y \
     && microdnf clean all \
     && rm -rf /var/cache/* /var/log/dnf* /var/log/yum.*
 
-RUN python3 -m pip install ansible==${ANSIBLE_VERSION} \ 
-    && python3 -m pip install "ansible-lint[yamllint]==${ANSIBLE_LINT_VERSION}"
+RUN python -m pip install ansible==${ANSIBLE_VERSION} \ 
+    && python -m pip install "ansible-lint[yamllint]==${ANSIBLE_LINT_VERSION}"
 
 RUN echo "ansible version: $(ansible --version | head -n 1)" \
     && echo "ansible-playbook version: $(ansible-playbook --version | head -n 1)" \
