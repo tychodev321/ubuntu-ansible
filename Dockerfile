@@ -15,8 +15,8 @@ ENV PYTHON_VERSION=3.9.14 \
 # https://www.redhat.com/en/blog/introducing-red-hat-enterprise-linux-atomic-base-image
 
 RUN microdnf update -y \
-    && microdnf install -y python${PYTHON_VERSION} \
-    && microdnf install -y python${PYTHON_VERSION}-pip \
+    && microdnf install -y python-${PYTHON_VERSION} \
+    && microdnf install -y python-${PYTHON_VERSION}-pip \
     && microdnf install -y git \
     && microdnf clean all \
     && rm -rf /var/cache/* /var/log/dnf* /var/log/yum.*
