@@ -24,10 +24,12 @@ RUN microdnf update -y \
 RUN python3 -m pip install ansible==${ANSIBLE_VERSION} \ 
     && python3 -m pip install "ansible-lint[yamllint]==${ANSIBLE_LINT_VERSION}"
 
-RUN echo "ansible version: $(ansible --version)" \
-    && echo "ansible-playbook version: $(ansible-playbook --version)" \
-    && echo "ansible-lint version: $(ansible-lint --version)" \
-    && echo "git version: $(git --version)"
+RUN echo "ansible version: $(ansible --version | head -n 1)" \
+    && echo "ansible-playbook version: $(ansible-playbook --version | head -n 1)" \
+    && echo "ansible-lint version: $(ansible-lint --version | head -n 1)" \
+    && echo "git version: $(git --version)" \
+    && echo "python version: $(python3 --version)" \
+    && echo "pip version - $(python3 -m pip --version)"
 
 USER 1001
 
