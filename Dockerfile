@@ -14,6 +14,7 @@ ENV PYTHON_VERSION=3 \
 # MicroDNF is recommended over YUM for Building Container Images
 # https://www.redhat.com/en/blog/introducing-red-hat-enterprise-linux-atomic-base-image
 
+# Install the latest version of Python
 RUN microdnf update -y \
     && microdnf install -y python${PYTHON_VERSION} \
     && microdnf install -y python${PYTHON_VERSION}-devel \
@@ -31,6 +32,7 @@ RUN echo "ansible version: $(ansible --version | head -n 1)" \
     && echo "ansible-lint version: $(ansible-lint --version | head -n 1)" \
     && echo "git version: $(git --version)" \
     && echo "python version: $(python3 --version)" \
+    && echo "python version: $(python --version)" \
     && echo "pip version - $(python3 -m pip --version)" \
     && microdnf repolist
 
