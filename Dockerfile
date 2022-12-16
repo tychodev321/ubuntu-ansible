@@ -38,7 +38,7 @@ RUN echo "ansible version: $(ansible --version | head -n 1)" \
     && echo "ansible-lint version: $(ansible-lint --version | head -n 1)" \
     && echo "git version: $(git --version)" \
     && echo "python version: $(python --version)" \
-    && echo "pip version - $(python -m pip --version)" \
+    && echo "pip version: $(python -m pip --version)" \
     && microdnf repolist
 
 USER 1001
