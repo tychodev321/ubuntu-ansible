@@ -1,33 +1,36 @@
-FROM registry.access.redhat.com/ubi9/ubi-minimal:9.0.0
-# FROM redhat/ubi9/ubi-minimal:9.0.0
+FROM ubuntu:22.10
 
 LABEL maintainer=""
 
-ENV PYTHON_VERSION=3 \
+ENV PYTHON_VERSION=3.10.10 \
     PATH=$HOME/.local/bin/:$PATH \
     PYTHONUNBUFFERED=1 \
     PYTHONIOENCODING=UTF-8 \
     PIP_NO_CACHE_DIR=off \
+    POETRY_VERSION=1.2.2
     ANSIBLE_VERSION=7.0.0 \
     ANSIBLE_LINT_VERSION=6.9.0
 
-# MicroDNF is recommended over YUM for Building Container Images
-# https://www.redhat.com/en/blog/introducing-red-hat-enterprise-linux-atomic-base-image
+# Install Base Tools
+RUN apt update -y && apt upgrade -y \
+    && apt install -y unzip \
+    && apt install -y gzip \
+    && apt install -y tar \
+    && apt install -y wget \
+    && apt install -y curl \
+    && apt install -y git \
+    && apt install -y sudo \
+    && apt clean -y \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install Tools
-RUN microdnf update -y \
-    && microdnf install -y git \
-    && microdnf clean all \
-    && rm -rf /var/cache/* /var/log/dnf* /var/log/yum.*
-
-# Install the latest version of Python
-RUN microdnf update -y \
-    && microdnf install -y python${PYTHON_VERSION} \
-    && microdnf install -y python${PYTHON_VERSION}-devel \
-    && microdnf install -y python${PYTHON_VERSION}-setuptools \
-    && microdnf install -y python${PYTHON_VERSION}-pip \
-    && microdnf clean all \
-    && rm -rf /var/cache/* /var/log/dnf* /var/log/yum.*
+# Install Python
+RUN apt update -y && apt upgrade -y \
+    && apt install -y python3-pip \
+    && apt install -y python3-venv \
+    && apt install -y python3-setuptools \
+    && apt install -y python-is-python3 \
+    && apt clean -y \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install Ansible
 RUN python -m pip install ansible==${ANSIBLE_VERSION} \ 
@@ -38,8 +41,7 @@ RUN echo "ansible version: $(ansible --version | head -n 1)" \
     && echo "ansible-lint version: $(ansible-lint --version | head -n 1)" \
     && echo "git version: $(git --version)" \
     && echo "python version: $(python --version)" \
-    && echo "pip version: $(python -m pip --version)" \
-    && microdnf repolist
+    && echo "pip version: $(python -m pip --version)"
 
 # USER 1001
 
